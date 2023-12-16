@@ -6,17 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.vijay.popularmoviesjetpackcompose.presentation.BeerScreen
-import com.vijay.popularmoviesjetpackcompose.presentation.BeerViewModel
+import com.plcoding.composepaging3caching.presentation.BeerScreen
+import com.vijay.popularmoviesjetpackcompose.presentation.TvViewModel
 import com.vijay.popularmoviesjetpackcompose.ui.theme.PopularMoviesJetPackComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -30,10 +26,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val viewModel= hiltViewModel<BeerViewModel>()
-                    val beers = viewModel.beerPagingFlow.collectAsLazyPagingItems()
+                    val viewModel= hiltViewModel<TvViewModel>()
+                    val tvModel = viewModel.beerPagingFlow.collectAsLazyPagingItems()
+
                    BeerScreen(
-                       beers = beers)
+                       tvModel = tvModel)
                 }
             }
         }

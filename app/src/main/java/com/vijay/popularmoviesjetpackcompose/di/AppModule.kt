@@ -5,10 +5,10 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
-import com.vijay.popularmoviesjetpackcompose.data.BeerEntity
-import com.vijay.popularmoviesjetpackcompose.data.local.BeerDatabase
-import com.vijay.popularmoviesjetpackcompose.data.remote.BeerApi
-import com.vijay.popularmoviesjetpackcompose.data.remote.BeerRemoteMediator
+import com.vijay.popularmoviesjetpackcompose.data.TvEntity
+import com.vijay.popularmoviesjetpackcompose.data.local.TvDatabase
+import com.vijay.popularmoviesjetpackcompose.data.remote.TvApi
+import com.vijay.popularmoviesjetpackcompose.data.remote.TvRemoteMediator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,19 +27,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesBeerDatabase(@ApplicationContext context:Context):BeerDatabase{
+    fun providesBeerDatabase(@ApplicationContext context:Context):TvDatabase{
             return Room.databaseBuilder(
                 context,
-                BeerDatabase::class.java,
+                TvDatabase::class.java,
                 "beers.db"
             ).build()
     }
 
     @Provides
     @Singleton
-    fun providesBeerAPi():BeerApi{
+    fun providesBeerAPi():TvApi{
         return Retrofit.Builder()
-            .baseUrl(BeerApi.BASE_URL)
+            .baseUrl(TvApi.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create( )
@@ -47,10 +47,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideBeerPager(beerDb:BeerDatabase,beerApi: BeerApi):Pager<Int,BeerEntity>{
+    fun provideBeerPager(beerDb:TvDatabase, beerApi: TvApi):Pager<Int,TvEntity>{
         return Pager(
             config = PagingConfig(pageSize = 20),
-            remoteMediator = BeerRemoteMediator(
+            remoteMediator = TvRemoteMediator(
                 beerDb=beerDb,
                 beerApi=beerApi
             ),
