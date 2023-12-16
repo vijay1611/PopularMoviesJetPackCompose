@@ -41,6 +41,7 @@ class TvRemoteMediator (
 
             delay(2000L)
             val beers = beerApi.getBeers(
+                apiKey="ae20ddebbad1388a330906a1449e37f7",
                 page = loadKey,
                 pageCount = state.config.pageSize
             )
